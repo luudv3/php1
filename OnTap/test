@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        <label for="username">Nhập tài khoản</label>
+        <input type="text" name="username">
+
+        <label for="pwd">Nhập mật khẩu</label>
+        <input type="text" name="pwd">
+
+        <button type = 'submit'>Đăng nhập</button>
+    </form>
+</body>
+</html>
+
+<?php
+session_start();
+if(isset($_POST['username']) && isset($_POST['pwd'])){
+    $username = $_POST['username'];
+    $pass = $_POST['pwd'];
+// Kiểm tra thông tin đăng nhập 
+    foreach ($dataUser as $key => $user) {
+        if ($username === $user['username'] && $pass === $user['password']) {
+            // Lưu session 
+            $_SESSION['taiKhoan'] = $username;
+            $login_success = "Đã đăng nhập được!";
+            break;
+        }else{
+            $login_er = "thông tin không đúng";
+        }
+    }
+    if(isset($login_success)){
+        echo $login_success;
+    }else{
+        echo $login_er;
+    }
+}
+?>
+
